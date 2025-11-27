@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bay Academy</title>
+  <style>
+    body {
+      background: #13171A;
+      color: #F6F7F8;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+      transition: background 0.3s, color 0.3s;
+    }
+    body.light-mode {
+      background: #F6F7F8;
+      color: #13171A;
+    }
+    h1 {
+      margin-bottom: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #1f2428;
+      color: #F6F7F8;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #2d3338;
+    }
+    body.light-mode button {
+      background: #ddd;
+      color: #13171A;
+    }
+    body.light-mode button:hover {
+      background: #ccc;
+    }
+
+    #modalBackdrop {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.8);
+    }
+    #modalBox {
+      background: #191d1f;
+      padding: 2em 1.5em;
+      border-radius: 20px;
+      max-width: 350px;
+      margin: 100px auto;
+    }
+    body.light-mode #modalBox {
+      background: #f0f0f0;
+      color: #13171A;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to Bay Academy</h1>
+  <p>
+    We are the Bay Area Demons! Located in the heart of Oakland, California,
+    we take pride in being one of the top academies for both education and sports.
+    Our diversity stands out, bringing together students from all around the world.
+    We value student feedback and continually improve to make our campus the best it can be.
+  </p>
+
+  <button onclick="toggleMode()" id="modeBtn">Dark Mode</button>
+  <button id="donateButton">Donate</button>
+
+  <p id="demo"></p>
+
+  <!-- FORM INSERTED HERE -->
+  <h2>Enter Your Name</h2>
+  <form id="myForm">
+    <input type="text" id="nameInput" placeholder="Your name">
+    <input type="submit" value="Submit">
+  </form>
+  <p id="result"></p>
+  <!-- END FORM -->
+
+  <div id="modalBackdrop">
+    <div id="modalBox">
+      <p>Thank you for your donation! Your support means a lot to us.</p>
+      <button onclick="closeModal()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    function toggleMode() {
+      document.body.classList.toggle('light-mode');
+      const btn = document.getElementById("modeBtn");
+      btn.innerText = document.body.classList.contains('light-mode') ? "Light Mode" : "Dark Mode";
+    }
+
+    const donateButton = document.getElementById("donateButton");
+    const demo = document.getElementById("demo");
+
+    donateButton.addEventListener("mouseover", () => demo.innerHTML = "Ready to donate?");
+    donateButton.addEventListener("mouseout", () => demo.innerHTML = "");
+    donateButton.addEventListener("click", openModal);
+
+    function openModal() {
+      document.getElementById('modalBackdrop').style.display = 'block';
+    }
+    function closeModal() {
+      document.getElementById('modalBackdrop').style.display = 'none';
+      demo.innerHTML = "Thanks for the donation!";
+    }
+
+    // ****** FORM SUBMIT HANDLER ADDED *******
+    document.getElementById("myForm").addEventListener("submit", function(event){
+      event.preventDefault();
+      let name = document.getElementById("nameInput").value;
+      document.getElementById("result").innerHTML = "Hello, " + name + "! 👋";
+    });
+  </script>
+</body>
+</html>
